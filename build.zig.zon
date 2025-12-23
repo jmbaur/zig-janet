@@ -1,0 +1,13 @@
+.{
+    .name = .zig_janet,
+    .version = "0.0.0",
+    .fingerprint = 0xa25a1d5b62b8ab80, // Changing this has security and trust implications.
+    .minimum_zig_version = "0.15.2",
+    .dependencies = .{
+        .janet = .{
+            .url = "https://github.com/janet-lang/janet/archive/refs/tags/v1.40.1.tar.gz",
+            .hash = "N-V-__8AAIEhIgBR5OJUsRfe9z01OzwIngIwNeZy1NBuBEoc",
+        },
+    },
+    .paths = .{"buid.zig"},
+}
