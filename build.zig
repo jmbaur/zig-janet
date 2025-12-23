@@ -17,18 +17,21 @@ pub fn build(b: *std.Build) void {
         },
     );
 
+    const cflags: []const []const u8 = &.{ "-std=c99", "-fvisibility=hidden" };
+
     const janet_boot = b.addExecutable(.{
         .name = "janet-boot",
         .root_module = b.createModule(.{
             .optimize = .Debug,
             .target = b.graph.host,
             .link_libc = true,
+            .pic = true,
         }),
     });
 
     janet_boot.addCSourceFiles(.{
         .root = janet_dep.path(""),
-        .flags = &.{"-DJANET_BOOTSTRAP"},
+        .flags = cflags ++ .{"-DJANET_BOOTSTRAP"},
         .files = &.{
             // boot
             "src/boot/array_test.c",
@@ -95,9 +98,10 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .strip = optimize != .Debug,
             .link_libc = true,
+            .pic = true,
         }),
     });
-    janet_lib.addCSourceFile(.{ .file = janet_c, .language = .c });
+    janet_lib.addCSourceFile(.{ .file = janet_c, .flags = cflags, .language = .c });
     janet_lib.addIncludePath(janet_dep.path("src/include"));
     janet_lib.addConfigHeader(janetconf);
     janet_lib.installHeader(janetconf.getOutputFile(), "janetconf.h");
@@ -111,10 +115,12 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .strip = optimize != .Debug,
             .link_libc = true,
+            .pic = true,
         }),
     });
     janet.addCSourceFiles(.{
         .root = janet_dep.path(""),
+        .flags = cflags,
         .files = &.{"src/mainclient/shell.c"},
     });
     janet.addIncludePath(janet_dep.path("src/include"));
