@@ -5,8 +5,8 @@
     .minimum_zig_version = "0.15.2",
     .dependencies = .{
         .janet = .{
-            .url = "https://github.com/janet-lang/janet/archive/refs/tags/v1.40.1.tar.gz",
-            .hash = "N-V-__8AAIEhIgBR5OJUsRfe9z01OzwIngIwNeZy1NBuBEoc",
+            .url = "https://github.com/janet-lang/janet/archive/refs/tags/v1.41.1.tar.gz",
+            .hash = "N-V-__8AANPuIgCOiArALV7q_se_P_RjkC0TLuDREYtsSqYM",
         },
     },
     .paths = .{"buid.zig"},
